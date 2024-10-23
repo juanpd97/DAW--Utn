@@ -1,0 +1,37 @@
+usuario:admin
+contraseña:admin
+
+
+
+
+------------------
+El Problema:
+
+Cuando usabas action="./controller/LoginController.php" en tu formulario, fallaba
+Al quitar el action, funcionó
+Esto parecía contradictorio porque normalmente el action es importante
+
+¿Por qué pasaba?
+
+Tu código ya tiene esta línea al final del formulario:
+
+phpCopy<?php
+    $loginController->login();
+?>
+
+Por eso:
+
+
+Sin action: El formulario se envía a la misma página y $loginController->login() procesa los datos ✅
+Con action: Intentaba enviar a otro archivo y fallaba ❌
+
+La Solución:
+phpCopy<!-- Así está bien para tu caso -->
+<form method="POST">
+    <!-- tus campos de usuario y contraseña -->
+    <button type="submit">Iniciar Sesión</button>
+</form>
+<?php
+    $loginController->login();
+?>
+En resumen: Como ya tienes la lógica de procesamiento en la misma página del formulario, no necesitas el action. Tu código actual (sin el action) es la forma correcta para tu caso específico.
