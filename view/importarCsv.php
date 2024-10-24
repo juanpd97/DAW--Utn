@@ -63,8 +63,8 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Aquí se agregará el contenido dinámico de cada página -->
-                <h1>Bienvenido <?php echo $_SESSION['usuario'];?></h1>
-                <p>:)</p>
+                <h1>importar</h1>
+                <p>Funca (? -_-</p>
             </div>
         </div>
     </div>
