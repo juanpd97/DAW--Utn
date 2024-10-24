@@ -38,14 +38,14 @@
     <!-- Barra de navegación (Header) -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../Procesar.php?action=inicio">Trabajo Practico 1</a>
+            <a class="navbar-brand" href="../Procesar.php?action=inicioView">Trabajo Practico 1</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../Procesar.php?action=importarCsv">Importar CSV</a>
+                        <a class="nav-link" href="../Procesar.php?action=importarCsvView">Importar CSV</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="../Procesar.php?action=logout">Cerrar Sesión</a>
@@ -61,11 +61,22 @@
     <!------------------- Contenido Principal ------------>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <!-- Aquí se agregará el contenido dinámico de cada página -->
-                <h1>importar</h1>
-                <p>Funca (? -_-</p>
+            <div class="col-2"></div>
+            <div class="col-md-8">
+
+            <h1 class="text-center">Importar csv</h1>
+
+            <form action="../Procesar.php?action=importarCSV" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+             <label for="fileCSV" class="form-label">Seleccionar archivo csv:</label>
+            <input type="file" class="form-control" name="fileCSV" id="fileCSV" accept=".csv" required>
             </div>
+            <button type="submit" class="btn btn-primary">Subir CSV</button>
+            </form>
+
+
+            </div>
+            <div class="col-2"></div>
         </div>
     </div>
 

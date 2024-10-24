@@ -10,14 +10,17 @@ if (isset($_GET['action'])) {
             $procesar->logOut();
             break;
 
-        case 'inicio':
+        case 'inicioView':
             $procesar->inicioView();
             break;
         
-        case 'importarCsv':
-            $procesar->importarView();
+        case 'importarCsvView':
+            $procesar->importarCsvView();
             break;
 
+        case 'importarCsvController':
+            $procesar->importarCsvView();
+        
         default:
             $procesar->autenticar();
             break;
@@ -27,24 +30,24 @@ Class Procesar{
 
 
     public function autenticar(){
-        header('Location: ./view/login.php');
+        header('Location: ./view/loginView.php');
         exit();
     }
 
     public function inicioView(){
-        header('Location: ./view/inicio.php');
+        header('Location: ./view/inicioView.php');
         exit();
     }
 
     public function logOut() {
         session_start();  
         session_destroy();  
-        header('Location: ./view/login.php');  
+        header('Location: ./view/loginView.php');  
         exit();
     }
 
-    public function importarView(){
-        header('Location: ./view/importarCsv.php');
+    public function importarCsvView(){
+        header('Location: ./view/importarCsvView.php');
         exit();
     }
 

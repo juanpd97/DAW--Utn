@@ -1,7 +1,7 @@
 <?php
     //require_once '../model/Usuario.php';
     // En LoginController.php
-    require_once __DIR__ . '/../model/Usuario.php';
+    require_once __DIR__ . '/../model/UsuarioModel.php';
     
 class LoginController {
     public function __construct() {
@@ -13,14 +13,14 @@ class LoginController {
             $usuarioIngresado = $_POST['inpNombreUsuario'];
             $contrasenaIngresada = $_POST['inpContrasenaUsuario'];
 
-            $usuario = new Usuario();
+            $usuario = new UsuarioModel();
             $usuarioAutenticado = $usuario->verificarUsuario($usuarioIngresado, $contrasenaIngresada);
             
             if ($usuarioAutenticado) {
                 session_start();
                 $_SESSION['usuario'] = $usuarioIngresado;
                 $_SESSION['autenticacionOk'] = true;
-                header("Location: ../view/inicio.php"); 
+                header("Location: ../view/inicioView.php"); 
                 exit;
             } else {
                 echo "Usuario o contraseña incorrectos.";
