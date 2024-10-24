@@ -1,20 +1,72 @@
 <?php
+    require_once '';
     session_start();
-    if ($_SESSION["autenticacionOk"] == true){
-    } else{
-        header('Location: ./login.php');
-        exit();
-    }
-?>
 
+    if (!isset($_SESSION['autenticacionOk']) || $_SESSION['autenticacionOk'] !== true) {
+    header("Location: ./login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sistema de Gestión</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Estilos personalizados */
+        body {
+            padding-top: 60px; /* Para evitar que el contenido quede debajo del navbar */
+        }
+        .navbar {
+            background-color: #007bff;
+        }
+        .navbar a {
+            color: white;
+        }
+        .container {
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-    <h1>XDXD Lol</h1>
+
+    <!-- Barra de navegación (Header) -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Trabajo Practico 1</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Opción para Importar CSV -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/prueba/view/importar.php">Importar CSV</a>
+                    </li>
+                    <!-- Opción para Cerrar Sesión -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/prueba/controller/logout.php">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Aquí se agregará el contenido dinámico de cada página -->
+                <h1>Bienvenido al Sistema de Gestión</h1>
+                <p>Esta es la página principal. Usa las opciones del menú para navegar.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Opcional, para el funcionamiento del menú en pantallas pequeñas) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
