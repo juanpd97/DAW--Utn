@@ -6,11 +6,11 @@ Class Procesar{
 
     public function autenticar(){
         header('Location: ./view/login.php');
-        exit;
+        exit();
     }
 
     public function inicioView(){
         header('Location: ./view/inicio.php');
-        exit;
+        exit();
     }
 }
