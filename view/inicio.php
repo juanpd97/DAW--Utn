@@ -1,6 +1,6 @@
 <?php
-    require_once '../Procesar.php';
-    $procesar = new Procesar();
+    //require_once '../Procesar.php';
+    //$procesar = new Procesar();
     
     session_start();
 
@@ -18,7 +18,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        /* Estilos personalizados */
         body {
             padding-top: 60px; /* Para evitar que el contenido quede debajo del navbar */
         }
@@ -35,7 +34,7 @@
 </head>
 <body>
 
-    <!-- Barra de navegación (Header) -->
+    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="../Procesar.php?action=inicio">Trabajo Practico 1</a>

@@ -1,6 +1,6 @@
 <?php
-    require_once '../Procesar.php';
-    $procesar = new Procesar();
+    //require_once '../Procesar.php';
+    //$procesar = new Procesar();
     
     session_start();
 
