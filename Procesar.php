@@ -1,6 +1,7 @@
 <?php
 //require_once './controller/LoginController.php';
 require_once __DIR__ . './controller/LoginController.php';
+require_once __DIR__ .'./controller/importarCsvController.php';
 
 if (isset($_GET['action'])) {
     $procesar = new Procesar();
@@ -20,10 +21,23 @@ if (isset($_GET['action'])) {
 
         case 'importarCsvController':
             $procesar->importarCsvView();
+
+        case 'importarCsv':
+            $procesar->importarCsv();
         
         default:
             $procesar->autenticar();
             break;
+    }
+}
+
+if(isset($_POST['action'])){
+    $procesar = new Procesar();
+
+    switch ($_POST['action']) {
+        case 'importarCsv':
+            $procesar->importarCsv();
+    break;
     }
 }
 Class Procesar{
@@ -51,5 +65,10 @@ Class Procesar{
         exit();
     }
 
+    public function importarCsv(){
+       
 
+
+        
+    }
 }

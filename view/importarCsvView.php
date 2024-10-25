@@ -66,7 +66,7 @@
 
             <h1 class="text-center">Importar csv</h1>
 
-            <form action="../Procesar.php?action=importarCSV" method="POST" enctype="multipart/form-data">
+            <form action="../Procesar.php?action=importarCsv" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
              <label for="fileCSV" class="form-label">Seleccionar archivo csv:</label>
             <input type="file" class="form-control" name="fileCSV" id="fileCSV" accept=".csv" required>
