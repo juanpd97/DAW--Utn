@@ -68,8 +68,8 @@
 
             <form action="../Procesar.php?action=importarCsv" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
-             <label for="fileCSV" class="form-label">Seleccionar archivo csv:</label>
-            <input type="file" class="form-control" name="fileCSV" id="fileCSV" accept=".csv" required>
+             <label for="archivoCsv" class="form-label">Seleccionar archivo csv:</label>
+            <input type="file" class="form-control" name="archivoCsv" id="archivoCsv" accept=".csv" required>
             </div>
             <button type="submit" class="btn btn-primary">Subir CSV</button>
             </form>
@@ -77,6 +77,14 @@
 
             </div>
             <div class="col-2"></div>
+
+            <?php
+            if (isset($_SESSION["mensaje"])) {
+                echo "<div class='alert alert-info'>" . $_SESSION["mensaje"] . "</div>";
+                unset($_SESSION["mensaje"]); // Limpiar mensaje de sesión
+            }
+            ?>
+
         </div>
     </div>
 

@@ -2,7 +2,7 @@
 //require_once './Database.php';
 require_once __DIR__ . './Database.php';
 class UsuarioModel {
-
+    
     public function __construct() {}
 
     public function verificarUsuario($usuarioIngresado, $contrasenaIngresada) {

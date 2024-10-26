@@ -3,7 +3,7 @@
 class Database {
     private $host = "localhost";
     private $puerto = "3307";
-    private $dnNombre = "Prueba3";
+    private $dnNombre = "tp";
     private $username = "root";
     private $password = "";
     
