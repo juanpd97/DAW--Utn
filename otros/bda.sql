@@ -4,23 +4,27 @@ CREATE TABLE Usuario (
     contrasena VARCHAR(255) NOT NULL    
 );
 
-CREATE TABLE Cliente (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  cuit BIGINT NOT NULL,
-  condicionIva INT NOT NULL,
-  razonSocial VARCHAR(255) NOT NULL,
-  alta DATE NOT NULL,
-  direccion VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  UNIQUE (cuit)
+
+CREATE TABLE ventas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipoComprobante VARCHAR(50) NOT NULL,
+    puntoVenta INT NOT NULL,
+    numeroComprobante VARCHAR(50) NOT NULL,
+    cuitCliente VARCHAR(50) NOT NULL,
+    importe DECIMAL(10, 2) NOT NULL
 );
 
-CREATE TABLE Venta (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  tipoComprobante CHAR(3) NOT NULL,
-  puntoVenta VARCHAR(4) NOT NULL,
-  numeroComprobante VARCHAR(8) NOT NULL,
-  cuitCliente BIGINT NOT NULL,
-  importe DOUBLE NOT NULL,
-  FOREIGN KEY (cuitCliente) REFERENCES clientes(cuit)
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cuit VARCHAR(50) UNIQUE NOT NULL,
+    condicionIva VARCHAR(50) NOT NULL,
+    razonSocial VARCHAR(100) NOT NULL,
+    alta DATE NOT NULL,
+    direccion VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL
 );
+
+
+select * from usuario;
+select * from clientes;
+select * from ventas;

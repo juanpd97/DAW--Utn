@@ -106,11 +106,13 @@
 
         
 
+        
         /*
         public function guardarCliente($fileLink) {
             try {
                 $query = "INSERT INTO cliente (cuit, condicion_iva, razon_social, alta, direccion, email) 
                           VALUES (:cuit, :condicion_iva, :razon_social, :alta, :direccion, :email)";
+
                 $stmt = $this->db->prepare($query);
                 $stmt->bindParam(':cuit', $fileLink['cuit']);
                 $stmt->bindParam(':condicion_iva', $fileLink['condicion_iva']);
@@ -118,9 +120,10 @@
                 $stmt->bindParam(':alta', $fileLink['alta']);
                 $stmt->bindParam(':direccion', $fileLink['direccion']);
                 $stmt->bindParam(':email', $fileLink['email']);
+
                 return $stmt->execute();
+
             } catch(PDOException $e) {
-                // Opcionalmente, registra o muestra el error
                 return false;
             }
         }
@@ -128,10 +131,13 @@
         public function buscarClientePorCUIT($cuit) {
             try {
                 $query = "SELECT * FROM clientes WHERE cuit = :cuit";
+
                 $stmt = $this->db->prepare($query);
                 $stmt->bindParam(':cuit', $cuit);
                 $stmt->execute();
+
                 return $stmt->fetch(PDO::FETCH_ASSOC);
+
             } catch (PDOException $e) {
                 return false;
             }
@@ -142,7 +148,9 @@
             try {
                 $query = "UPDATE clientes SET condicion_iva = :condicion_iva, razon_social = :razon_social, 
                           alta = :alta, direccion = :direccion, email = :email WHERE cuit = :cuit";
+
                 $stmt = $this->db->prepare($query);
+
                 $stmt->bindParam(':cuit', $fileLink['cuit']);
                 $stmt->bindParam(':condicion_iva', $fileLink['condicion_iva']);
                 $stmt->bindParam(':razon_social', $fileLink['razon_social']);
@@ -150,6 +158,7 @@
                 $stmt->bindParam(':direccion', $fileLink['direccion']);
                 $stmt->bindParam(':email', $fileLink['email']);
                 return $stmt->execute();
+
             } catch (PDOException $e) {
                 return false;
             }

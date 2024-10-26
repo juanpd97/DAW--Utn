@@ -23,7 +23,8 @@ class LoginController {
                 header("Location: ../view/inicioView.php"); 
                 exit;
             } else {
-                echo "Usuario o contraseña incorrectos.";
+                echo "<br>";
+                echo "<div class='alert alert-info'>Usuario o contraseña incorrecto.</div>";
             }
         }
     }

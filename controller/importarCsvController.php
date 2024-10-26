@@ -13,13 +13,13 @@ class ImportarCsvController {
     }
 
     public function importarCsv($archivoCsv) {
-        // Validar archivo CSV
+        
         if (!isset($archivoCsv) || $archivoCsv['type'] !== 'text/csv') {
             $_SESSION['mensaje'] = 'Archivo CSV no válido.';
             return false;
         }
 
-        // Detectar tipo de archivo (Clientes o Ventas)
+        
         $tipoArchivo = $this->detectarTipoArchivo($archivoCsv);
         if ($tipoArchivo === "clientes") {
             return $this->importarClientes($archivoCsv);
@@ -32,8 +32,7 @@ class ImportarCsvController {
     }
 
     private function detectarTipoArchivo($archivoCsv) {
-        // Abrir el archivo y leer la primera línea para detectar la cabecera
-        if (($handle = fopen($archivoCsv['tmp_name'], "r")) !== FALSE) {
+            if (($handle = fopen($archivoCsv['tmp_name'], "r")) !== FALSE) {
             $cabecera = fgets($handle);
             fclose($handle);
 
@@ -53,7 +52,7 @@ class ImportarCsvController {
             try {
                 $this->conexion->beginTransaction();
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-                    // Verificar que los campos obligatorios no estén vacíos
+                    
                     if (empty($data[0]) || empty($data[1]) || empty($data[2]) || empty($data[3]) || empty($data[4]) || empty($data[5])) {
                         throw new Exception("Campos obligatorios vacíos en la fila con CUIT: " . $data[0]);
                     }
@@ -87,12 +86,16 @@ class ImportarCsvController {
 
     private function importarVentas($archivoCsv) {
         if (($handle = fopen($archivoCsv['tmp_name'], "r")) !== FALSE) {
-            fgetcsv($handle); // Omitir la cabecera
+            fgetcsv($handle); 
     
             try {
                 $this->conexion->beginTransaction();
-                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) { // Usar ";" como delimitador si es necesario
-                    // Mapear datos a `VentaModel`
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    
+                    if (empty($data[0]) || empty($data[1]) || empty($data[2]) || empty($data[3]) || empty($data[4])) {
+                        throw new Exception("Campos obligatorios vacíos en la fila del cliente con CUIT: " . $data[3]);
+                    }
+
                     $venta = new VentaModel();
                     $venta->setTipoComprobante($data[0]);
                     $venta->setPuntoVenta($data[1]);
@@ -100,7 +103,7 @@ class ImportarCsvController {
                     $venta->setCuitCliente($data[3]);
                     $venta->setImporte($data[4]);
     
-                    // Guardar la venta en la base de datos
+                    
                     if (!$venta->guardarVenta()) {
                         throw new Exception("Error al guardar la venta");
                     }
