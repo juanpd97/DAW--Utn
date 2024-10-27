@@ -93,9 +93,15 @@
                 $stmt->bindParam(':cuit', $this->cuit);
                 $stmt->bindParam(':condicionIva', $this->condicionIva);
                 $stmt->bindParam(':razonSocial', $this->razonSocial);
-                $stmt->bindParam(':alta', $this->alta);
+                
                 $stmt->bindParam(':direccion', $this->direccion);
                 $stmt->bindParam(':email', $this->email);
+
+
+                $fechaOriginal = $this->alta;
+                $fechaConvertida = DateTime::createFromFormat('dmY', $fechaOriginal)->format('Y-m-d');
+
+                $stmt->bindParam(':alta', $fechaConvertida);
     
                 return $stmt->execute();
             } catch (PDOException $e) {

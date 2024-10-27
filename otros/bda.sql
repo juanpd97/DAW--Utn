@@ -25,10 +25,14 @@ CREATE TABLE clientes (
 
 CREATE TABLE archivosImportados (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    fecha_importacion DATETIME NOT NULL
+    cabecera VARCHAR(255) UNIQUE,
+	fechaImportacion DATETIME NOT NULL
 );
 
+INSERT INTO Usuario (usuario, contrasena) VALUES
+('admin', 'admin'),
+('seba', '123'),
+('juan', '123');
 
 
 select * from usuario;

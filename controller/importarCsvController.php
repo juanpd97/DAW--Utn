@@ -19,15 +19,16 @@ class ImportarCsvController {
         }
 
         // Verificar si el archivo ya fue importado
-        if ($this->archivoYaImportado($archivoCsv['name'])) {
+        $cabeceraArchivo = $this->obtenerCabecera($archivoCsv);
+
+        if ($this->archivoYaImportado($cabeceraArchivo)) {
             $_SESSION['mensaje'] = 'Este archivo ya fue importado.';
             return false;
         }
 
         // Detectar tipo de archivo y procesarlo
         $tipoArchivo = $this->detectarTipoArchivo($archivoCsv);
-        $resultado = false;
-
+        
         if ($tipoArchivo === "clientes") {
             $resultado = $this->importarClientes($archivoCsv);
         } elseif ($tipoArchivo === "ventas") {
@@ -39,7 +40,7 @@ class ImportarCsvController {
 
         // Registrar el archivo si la importación fue exitosa
         if ($resultado) {
-            $this->registrarArchivo($archivoCsv['name']);
+            $this->registrarArchivo($cabeceraArchivo);
         }
 
         return $resultado;
@@ -96,9 +97,7 @@ class ImportarCsvController {
             }
         }
     }
-    
-    
-
+ 
     private function importarVentas($archivoCsv) {
         if (($handle = fopen($archivoCsv['tmp_name'], "r")) !== FALSE) {
             fgetcsv($handle); 
@@ -136,20 +135,32 @@ class ImportarCsvController {
         }
     }
     
+    private function obtenerCabecera($archivoCsv) {
+        if (($handle = fopen($archivoCsv['tmp_name'], "r")) !== FALSE) {
+            $cabecera = fgets($handle);
+            fclose($handle);
+            return trim($cabecera);
+        }
+        return null;
+    }
 
+    private function archivoYaImportado($cabeceraArchivo) {
 
-    private function archivoYaImportado($nombreArchivo) {
-        $query = "SELECT COUNT(*) FROM archivosImportados WHERE nombre = :nombre";
+        $query = "SELECT COUNT(*) FROM archivosImportados WHERE cabecera = :cabecera";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':nombre', $nombreArchivo);
+        $stmt->bindParam(':cabecera', $cabeceraArchivo);
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
+
+
     }
-    private function registrarArchivo($nombreArchivo) {
-        $query = "INSERT INTO archivosImportados (nombre, fecha_importacion) VALUES (:nombre, NOW())";
+    private function registrarArchivo($cabeceraArchivo) {
+      
+        $query = "INSERT INTO archivosImportados (cabecera, fechaImportacion) VALUES (:cabecera, NOW())";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':nombre', $nombreArchivo);
+        $stmt->bindParam(':cabecera', $cabeceraArchivo);
         $stmt->execute();
+
     }
     
 }

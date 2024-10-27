@@ -56,9 +56,6 @@
         </div>
     </nav>
 
-
-
-    <!------------------- Contenido Principal ------------>
     <div class="container">
         <div class="row">
             <div class="col-2"></div>
@@ -74,16 +71,16 @@
             <button type="submit" class="btn btn-primary">Subir CSV</button>
             </form>
 
-
-            </div>
-            <div class="col-2"></div>
-
             <?php
             if (isset($_SESSION["mensaje"])) {
-                echo "<div class='alert alert-info'>" . $_SESSION["mensaje"] . "</div>";
+                echo "<div class='alert alert-info mt-3' >" . $_SESSION["mensaje"] . "</div>";
                 unset($_SESSION["mensaje"]); // Limpiar mensaje de sesión
             }
             ?>
+            </div>
+            <div class="col-2"></div>
+
+            
 
         </div>
     </div>

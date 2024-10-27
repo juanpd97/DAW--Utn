@@ -24,7 +24,7 @@ class LoginController {
                 exit;
             } else {
                 echo "<br>";
-                echo "<div class='alert alert-info'>Usuario o contraseña incorrecto.</div>";
+                echo "<div class='alert alert-info mt-3'>Usuario o contraseña incorrecto.</div>";
             }
         }
     }
