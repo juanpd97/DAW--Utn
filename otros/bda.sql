@@ -4,7 +4,6 @@ CREATE TABLE Usuario (
     contrasena VARCHAR(255) NOT NULL    
 );
 
-
 CREATE TABLE ventas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipoComprobante VARCHAR(50) NOT NULL,
@@ -24,7 +23,15 @@ CREATE TABLE clientes (
     email VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE archivosImportados (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    fecha_importacion DATETIME NOT NULL
+);
+
+
 
 select * from usuario;
 select * from clientes;
 select * from ventas;
+select * from archivosImportados;

@@ -13,23 +13,38 @@ class ImportarCsvController {
     }
 
     public function importarCsv($archivoCsv) {
-        
         if (!isset($archivoCsv) || $archivoCsv['type'] !== 'text/csv') {
             $_SESSION['mensaje'] = 'Archivo CSV no válido.';
             return false;
         }
 
-        
+        // Verificar si el archivo ya fue importado
+        if ($this->archivoYaImportado($archivoCsv['name'])) {
+            $_SESSION['mensaje'] = 'Este archivo ya fue importado.';
+            return false;
+        }
+
+        // Detectar tipo de archivo y procesarlo
         $tipoArchivo = $this->detectarTipoArchivo($archivoCsv);
+        $resultado = false;
+
         if ($tipoArchivo === "clientes") {
-            return $this->importarClientes($archivoCsv);
+            $resultado = $this->importarClientes($archivoCsv);
         } elseif ($tipoArchivo === "ventas") {
-            return $this->importarVentas($archivoCsv);
+            $resultado = $this->importarVentas($archivoCsv);
         } else {
             $_SESSION['mensaje'] = 'Error: Tipo de archivo desconocido.';
             return false;
         }
+
+        // Registrar el archivo si la importación fue exitosa
+        if ($resultado) {
+            $this->registrarArchivo($archivoCsv['name']);
+        }
+
+        return $resultado;
     }
+
 
     private function detectarTipoArchivo($archivoCsv) {
             if (($handle = fopen($archivoCsv['tmp_name'], "r")) !== FALSE) {
@@ -122,102 +137,20 @@ class ImportarCsvController {
     }
     
 
+
+    private function archivoYaImportado($nombreArchivo) {
+        $query = "SELECT COUNT(*) FROM archivosImportados WHERE nombre = :nombre";
+        $stmt = $this->conexion->prepare($query);
+        $stmt->bindParam(':nombre', $nombreArchivo);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+    private function registrarArchivo($nombreArchivo) {
+        $query = "INSERT INTO archivosImportados (nombre, fecha_importacion) VALUES (:nombre, NOW())";
+        $stmt = $this->conexion->prepare($query);
+        $stmt->bindParam(':nombre', $nombreArchivo);
+        $stmt->execute();
+    }
     
 }
-
-
-
-
-
-
-/*
-require_once __DIR__ . "/../Model/ClienteModel.php";
-require_once __DIR__ . "/../Model/VentaModel.php";
-require_once __DIR__ . "/../Model/Database.php";
-
-class ImportarCsvController {
-    private $clienteModel;
-    private $ventaModel;
-
-    public function __construct() {
-        $database = new Database();
-        $this->clienteModel = new ClienteModel($database);
-        $this->ventaModel = new VentaModel($database);
-    }
-
-    public function importar($filePath) {
-        if (($handle = fopen($filePath, "r")) !== false) {
-            // Leer la primera línea para detectar el tipo de archivo
-            $headers = fgetcsv($handle, 1000, ",");
-            
-            if ($this->esArchivoClientes($headers)) {
-                // Procesar el archivo como clientes
-                $this->procesarClientes($handle);
-            } elseif ($this->esArchivoVentas($headers)) {
-                // Procesar el archivo como ventas
-                $this->procesarVentas($handle);
-            } else {
-                echo "El archivo CSV no coincide con clientes ni ventas.";
-            }
-            fclose($handle);
-        } else {
-            echo "No se pudo abrir el archivo.";
-        }
-    }
-
-    private function esArchivoClientes($headers) {
-        // Ajusta los nombres de columnas según tu archivo de clientes
-        return in_array("cuit", $headers) && in_array("razon_social", $headers);
-    }
-
-    private function esArchivoVentas($headers) {
-        // Ajusta los nombres de columnas según tu archivo de ventas
-        return in_array("tipo_comprobante", $headers) && in_array("importe", $headers);
-    }
-
-    private function procesarClientes($handle) {
-        while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-            // Convertir cada línea en un array asociativo
-            $clienteData = [
-                "cuit" => $data[0],
-                "condicion_iva" => $data[1],
-                "razon_social" => $data[2],
-                "alta" => $data[3],
-                "direccion" => $data[4],
-                "email" => $data[5]
-            ];
-
-            // Verificar si el cliente existe y actualizarlo o insertarlo
-            $clienteExistente = $this->clienteModel->buscarClientePorCUIT($clienteData['cuit']);
-            if ($clienteExistente) {
-                $this->clienteModel->actualizarCliente($clienteData);
-                echo "Cliente con CUIT " . $clienteData['cuit'] . " actualizado.<br>";
-            } else {
-                $this->clienteModel->insertarCliente($clienteData);
-                echo "Cliente con CUIT " . $clienteData['cuit'] . " insertado.<br>";
-            }
-        }
-    }
-
-    private function procesarVentas($handle) {
-        while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-            // Convertir cada línea en un array asociativo
-            $ventaData = [
-                "tipo_comprobante" => $data[0],
-                "punto_venta" => $data[1],
-                "numero_comprobante" => $data[2],
-                "cuit_cliente" => $data[3],
-                "importe" => $data[4]
-            ];
-
-            // Insertar la venta
-            $this->ventaModel->insertarVenta($ventaData);
-            echo "Venta con CUIT cliente " . $ventaData['cuit_cliente'] . " insertada.<br>";
-        }
-    }
-}
-
-*/
-
-
 
