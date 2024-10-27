@@ -12,7 +12,6 @@ class Database {
     private $conexion;
 
     public function __construct() {
-        // Asignar las propiedades a partir de las constantes
         $this->host = DB_HOST;
         $this->puerto = DB_PORT;
         $this->dnNombre = DB_NAME;

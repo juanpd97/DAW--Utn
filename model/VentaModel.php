@@ -15,7 +15,7 @@ class VentaModel {
         $this->db = $bda->getConnection(); 
     }
 
-    // Getters
+    // -------------Getters
     public function getId() {
         return $this->id;
     }
@@ -40,7 +40,7 @@ class VentaModel {
         return $this->importe;
     }
 
-    // Setters
+    // ------------Setters
     public function setId($id) {
         $this->id = $id;
         return $this;
@@ -70,8 +70,7 @@ class VentaModel {
         $this->importe = $importe;
         return $this;
     }
-
-    // Método para guardar venta en la base de datos
+    
     public function guardarVenta() {
         try {
             $query = "INSERT INTO ventas (tipoComprobante, puntoVenta, numeroComprobante, cuitCliente, importe) 

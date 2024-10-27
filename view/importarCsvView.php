@@ -74,7 +74,7 @@
             <?php
             if (isset($_SESSION["mensaje"])) {
                 echo "<div class='alert alert-info mt-3' >" . $_SESSION["mensaje"] . "</div>";
-                unset($_SESSION["mensaje"]); // Limpiar mensaje de sesión
+                unset($_SESSION["mensaje"]); 
             }
             ?>
             </div>

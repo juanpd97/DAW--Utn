@@ -1,6 +1,11 @@
+usarios registrados:
 usuario:admin
 contraseña:admin
 
+usuario:seba
+contraseña:123
 
----------------
-arreglar el alta del cliente
+usuario:juan
+contraseña:123
+
+

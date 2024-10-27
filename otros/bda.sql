@@ -4,6 +4,11 @@ CREATE TABLE Usuario (
     contrasena VARCHAR(255) NOT NULL    
 );
 
+INSERT INTO Usuario (usuario, contrasena) VALUES
+('admin', 'admin'),
+('seba', '123'),
+('juan', '123');
+
 CREATE TABLE ventas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipoComprobante VARCHAR(50) NOT NULL,
@@ -29,13 +34,5 @@ CREATE TABLE archivosImportados (
 	fechaImportacion DATETIME NOT NULL
 );
 
-INSERT INTO Usuario (usuario, contrasena) VALUES
-('admin', 'admin'),
-('seba', '123'),
-('juan', '123');
 
 
-select * from usuario;
-select * from clientes;
-select * from ventas;
-select * from archivosImportados;
