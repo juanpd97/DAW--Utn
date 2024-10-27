@@ -2,3 +2,5 @@ usuario:admin
 contraseña:admin
 
 
+---------------
+arreglar el alta del cliente
