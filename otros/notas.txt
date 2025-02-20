@@ -1,4 +1,4 @@
-usarios registrados:
+usarios cargados:
 usuario:admin
 contraseña:admin
 
